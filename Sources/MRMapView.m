@@ -118,6 +118,31 @@
 	_baseView.contentScaleFactor = 1.0f / [UIScreen mainScreen].scale;
 }
 
+// These weren't ever intended to be committed, they're just here while I'm working out how this should work.
+static UIView *_pinView;
+static MRMapCoordinate _pinCoordinate;
+
+-(void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    if(_pinView) {
+        CGPoint pt = [_mapProjection pointForCoordinate:_pinCoordinate
+                                              zoomLevel:log2(self.zoomScale)
+                                               tileSize:[_tileProvider tileSize]];
+        NSLog(@"pinPoint: %f %@/%@", log2(self.zoomScale), NSStringFromCGPoint(pt), NSStringFromCGSize(self.contentSize));
+        _pinView.center = pt;
+    }
+}
+
+- (void)addPin:(UIView *)pinView atCoordinate:(MRMapCoordinate)coordinate
+{
+    [self addSubview:pinView];
+
+    _pinView = pinView;
+    _pinCoordinate = coordinate;
+
+    [self scrollViewDidZoom:self];
+}
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
 	return _baseView;
 }
