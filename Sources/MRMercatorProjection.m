@@ -10,13 +10,22 @@
 @implementation MRMercatorProjection
 
 - (CGPoint)pointForCoordinate:(MRMapCoordinate)coordinate
-					zoomLevel:(NSUInteger)zoom tileSize:(CGSize)tileSize {
-	
-	double sinLatitude = sin(coordinate.latitude * M_PI / 180);
-	CGFloat y = ((0.5 - log((1 + sinLatitude) / (1 - sinLatitude)) / (4 * M_PI)) * ((long) tileSize.height << zoom));
-	CGFloat x = ((coordinate.longitude + 180) / 360 * ((long) tileSize.width << zoom));
-	
-	return CGPointMake(x, y);
+                    zoomLevel:(float)zoom tileSize:(CGSize)tileSize {
+
+    NSUInteger _zoom = zoom;
+
+    double sinLatitude = sin(coordinate.latitude * M_PI / 180);
+    double scale = 1 + (zoom - _zoom);
+
+    CGSize scaledTileSize = CGSizeMake(
+                                  ((long) tileSize.width << _zoom) * scale,
+                                  ((long) tileSize.height << _zoom) * scale
+                                  );
+
+    CGFloat x = ((coordinate.longitude + 180) / 360) * scaledTileSize.width;
+    CGFloat y = (0.5 - log((1 + sinLatitude) / (1 - sinLatitude)) / (4 * M_PI)) * scaledTileSize.height;
+
+    return CGPointMake(x, y);
 }
 
 - (MRMapCoordinate)coordinateForPoint:(CGPoint)point zoomLevel:(NSUInteger)zoom 
