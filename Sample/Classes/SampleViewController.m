@@ -10,6 +10,8 @@
 #import "MRMapView.h"
 #import "MRMQOTileProvider.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface SampleViewController ()
 
 - (void)loadState;
@@ -71,8 +73,17 @@
 }
 
 - (IBAction)locateChicago:(id)sender {
-	_mapView.zoomLevel = 10;
-	_mapView.center = MRMapCoordinateMake(41.85f, -87.65f);
+    UIView *pinView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CurrentLocationPin.png"]];
+    pinView.layer.anchorPoint = CGPointMake(0.125, 0.4326923076923077);
+
+//    UIView *pinView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 5)];
+//    pinView.backgroundColor = [UIColor redColor];
+
+    [_mapView addPin:pinView atCoordinate:MRMapCoordinateMake(41.85f, -87.65f)];
+
+// Previous implementation of locateChicago
+//	_mapView.zoomLevel = 10;
+//	_mapView.center = MRMapCoordinateMake(41.85f, -87.65f);
 }
 
 @end
