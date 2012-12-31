@@ -44,4 +44,6 @@
 - (void)setCenter:(MRMapCoordinate)coord animated:(BOOL)anim;
 - (void)setZoomLevel:(NSUInteger)zoom animated:(BOOL)anim;
 
+- (void)addPin:(UIView *)pinView atCoordinate:(MRMapCoordinate)coordinate;
+
 @end
