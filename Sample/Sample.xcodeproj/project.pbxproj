@@ -16,6 +16,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SampleViewController.m */; };
 		83FFBEB515CE046C009A64FA /* MRMQOTileProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FFBEB415CE046C009A64FA /* MRMQOTileProvider.m */; };
+		B1E3AF9B168FBD1E00A81CD5 /* CurrentLocationPin.png in Resources */ = {isa = PBXBuildFile; fileRef = B1E3AF9A168FBD1E00A81CD5 /* CurrentLocationPin.png */; };
 		C965CECC1222B2A3005CF012 /* MRMapTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = C965CEC31222B2A3005CF012 /* MRMapTypes.m */; };
 		C965CECD1222B2A3005CF012 /* MRMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C965CEC51222B2A3005CF012 /* MRMapView.m */; };
 		C965CECE1222B2A3005CF012 /* MRMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = C965CEC71222B2A3005CF012 /* MRMercatorProjection.m */; };
@@ -40,6 +41,7 @@
 		83FFBEB315CE046C009A64FA /* MRMQOTileProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRMQOTileProvider.h; sourceTree = "<group>"; };
 		83FFBEB415CE046C009A64FA /* MRMQOTileProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRMQOTileProvider.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Sample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Sample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		B1E3AF9A168FBD1E00A81CD5 /* CurrentLocationPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrentLocationPin.png; sourceTree = "<group>"; };
 		C965CEC21222B2A3005CF012 /* MRMapTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRMapTypes.h; sourceTree = "<group>"; };
 		C965CEC31222B2A3005CF012 /* MRMapTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRMapTypes.m; sourceTree = "<group>"; };
 		C965CEC41222B2A3005CF012 /* MRMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRMapView.h; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B1E3AF9A168FBD1E00A81CD5 /* CurrentLocationPin.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Sample-Info.plist */,
 				2899E5210DE3E06400AC0155 /* SampleViewController.xib */,
@@ -216,6 +219,7 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* SampleViewController.xib in Resources */,
+				B1E3AF9B168FBD1E00A81CD5 /* CurrentLocationPin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
