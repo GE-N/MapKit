@@ -125,11 +125,11 @@ static MRMapCoordinate _pinCoordinate;
 -(void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
     if(_pinView) {
-        CGPoint pt = [_mapProjection pointForCoordinate:_pinCoordinate
-                                              zoomLevel:log2(self.zoomScale)
-                                               tileSize:[_tileProvider tileSize]];
-        NSLog(@"pinPoint: %f %@/%@", log2(self.zoomScale), NSStringFromCGPoint(pt), NSStringFromCGSize(self.contentSize));
-        _pinView.center = pt;
+
+        _pinView.center = [_mapProjection scaledPointForCoordinate:_pinCoordinate
+                                                         zoomScale:self.zoomScale
+                                                       contentSize:self.contentSize
+                                                          tileSize:[_tileProvider tileSize]];
     }
 }
 

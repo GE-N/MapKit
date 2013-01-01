@@ -19,7 +19,31 @@
 	return CGPointMake(x, y);
 }
 
-- (MRMapCoordinate)coordinateForPoint:(CGPoint)point zoomLevel:(NSUInteger)zoom 
+- (CGPoint)scaledPointForCoordinate:(MRMapCoordinate)coordinate zoomScale:(float)zoomScale contentSize:(CGSize)contentSize tileSize:(CGSize)tileSize
+{
+    // Basically MRMapZoomLevelFromScale(self.zoomScale), except not throwing away the decimal.
+    float zoomLevel = log2(zoomScale);
+
+    // Calculate how many tiles there should be based on zoomLevel, which will be correct no matter what zoom level we're actually at
+    NSUInteger numTiles = 1 << (long)floor(zoomLevel);
+
+    // Calculate scaled tileSize, we'll use this as our scaling factor below.
+    // I'm keeping these separate just in case we have different tile width/height in the future
+    float horizScale = (contentSize.width / numTiles) / tileSize.width;
+    float vertScale = (contentSize.height / numTiles) / tileSize.height;
+
+    // Calculate the unscaled point
+    CGPoint pt = [self pointForCoordinate:coordinate
+                                          zoomLevel:zoomLevel
+                                           tileSize:tileSize];
+    // Scale the point
+    pt.x *= horizScale;
+    pt.y *= vertScale;
+
+    return pt;
+}
+
+- (MRMapCoordinate)coordinateForPoint:(CGPoint)point zoomLevel:(NSUInteger)zoom
 							 tileSize:(CGSize)tileSize {
 	
 	MRLongitude lon = 360 * ((point.x / ((long) tileSize.width << zoom)) - 0.5);
