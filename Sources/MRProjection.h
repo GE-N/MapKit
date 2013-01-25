@@ -13,6 +13,8 @@
 
 - (CGPoint)pointForCoordinate:(MRMapCoordinate)coordinate zoomLevel:(NSUInteger)zoom tileSize:(CGSize)tileSize;
 - (CGPoint)scaledPointForCoordinate:(MRMapCoordinate)coordinate zoomScale:(float)zoomScale contentSize:(CGSize)contentSize tileSize:(CGSize)tileSize andOffset:(CGPoint)offset;
+
 - (MRMapCoordinate)coordinateForPoint:(CGPoint)point zoomLevel:(NSUInteger)zoom tileSize:(CGSize)tileSize;
+- (MRMapCoordinate)coordinateForPoint:(CGPoint)point zoomScale:(float)zoomScale contentSize:(CGSize)contentSize tileSize:(CGSize)tileSize andOffset:(CGPoint)offset;
 
 @end
