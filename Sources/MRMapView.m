@@ -129,7 +129,8 @@ static MRMapCoordinate _pinCoordinate;
         _pinView.center = [_mapProjection scaledPointForCoordinate:_pinCoordinate
                                                          zoomScale:self.zoomScale
                                                        contentSize:self.contentSize
-                                                          tileSize:[_tileProvider tileSize]];
+                                                          tileSize:[_tileProvider tileSize]
+                                                         andOffset:CGPointZero];
     }
 }
 

@@ -19,7 +19,7 @@
 	return CGPointMake(x, y);
 }
 
-- (CGPoint)scaledPointForCoordinate:(MRMapCoordinate)coordinate zoomScale:(float)zoomScale contentSize:(CGSize)contentSize tileSize:(CGSize)tileSize
+- (CGPoint)scaledPointForCoordinate:(MRMapCoordinate)coordinate zoomScale:(float)zoomScale contentSize:(CGSize)contentSize tileSize:(CGSize)tileSize andOffset:(CGPoint)offset
 {
     // Basically MRMapZoomLevelFromScale(self.zoomScale), except not throwing away the decimal.
     float zoomLevel = log2(zoomScale);
@@ -39,6 +39,9 @@
     // Scale the point
     pt.x *= horizScale;
     pt.y *= vertScale;
+
+    pt.x += offset.x;
+    pt.y += offset.y;
 
     return pt;
 }
