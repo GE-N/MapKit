@@ -122,22 +122,29 @@
 static UIView *_pinView;
 static MRMapCoordinate _pinCoordinate;
 
+-(CGPoint)getOffset
+{
+    CGPoint offset = CGPointZero;
+
+    CGSize boundsSize = self.bounds.size;
+    CGRect frameToCenter = _baseView.frame;
+
+    if(frameToCenter.size.width < boundsSize.width)
+    {
+        offset.x = (boundsSize.width - frameToCenter.size.width) / 2;
+    }
+    if(frameToCenter.size.height < boundsSize.height)
+    {
+        offset.y = (boundsSize.height - frameToCenter.size.height) / 2;
+    }
+
+    return offset;
+}
+
 -(void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
     if(_pinView) {
-        CGSize boundsSize = self.bounds.size;
-        CGRect frameToCenter = _baseView.frame;
-        CGPoint offset = CGPointZero;
-
-        if(frameToCenter.size.width < boundsSize.width)
-        {
-            offset.x = (boundsSize.width - frameToCenter.size.width) / 2;
-        }
-        if(frameToCenter.size.height < boundsSize.height)
-        {
-            offset.y = (boundsSize.height - frameToCenter.size.height) / 2;
-        }
-
+        CGPoint offset = [self getOffset];
         _pinView.center = [_mapProjection scaledPointForCoordinate:_pinCoordinate
                                                          zoomScale:self.zoomScale
                                                        contentSize:self.contentSize
