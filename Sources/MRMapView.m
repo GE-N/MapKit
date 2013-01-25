@@ -172,15 +172,23 @@ static MRMapCoordinate _pinCoordinate;
 	
 	UITouch *touch = [touches anyObject];
 	NSUInteger zoom = MRMapZoomLevelFromScale(self.zoomScale);
-	
-	if ([touches count] == 1 && touch.tapCount == 2) {
+
+	if ([touches count] == 1 && touch.tapCount == 1) {
+        MRMapCoordinate coord = [_mapProjection coordinateForPoint:[touch locationInView:self]
+                                                         zoomScale:self.zoomScale
+                                                       contentSize:self.contentSize
+                                                          tileSize:[_tileProvider tileSize]
+                                                         andOffset:[self getOffset]];
+        _pinCoordinate = coord;
+        [self scrollViewDidZoom:self];
+	} else if ([touches count] == 1 && touch.tapCount == 2) {
 		// zoom in
 		if (zoom < [_tileProvider maxZoomLevel]) {
-			CGPoint pt = [touch locationInView:self];
-			
-			MRMapCoordinate coord = [_mapProjection coordinateForPoint:pt
-															 zoomLevel:zoom
-															  tileSize:[_tileProvider tileSize]];
+            MRMapCoordinate coord = [_mapProjection coordinateForPoint:[touch locationInView:self]
+                                                             zoomScale:self.zoomScale
+                                                           contentSize:self.contentSize
+                                                              tileSize:[_tileProvider tileSize]
+                                                             andOffset:[self getOffset]];
 			zoom++;
 			
 			[self setCenter:coord animated:NO];
@@ -225,9 +233,12 @@ static MRMapCoordinate _pinCoordinate;
 	pt.x += self.bounds.size.width / 2;
 	pt.y += self.bounds.size.height / 2;
 	
-	return [_mapProjection coordinateForPoint:pt
-									zoomLevel:self.zoomLevel
-									 tileSize:[_tileProvider tileSize]];
+    return [_mapProjection coordinateForPoint:pt
+                                    zoomScale:self.zoomScale
+                                  contentSize:self.contentSize
+                                     tileSize:[_tileProvider tileSize]
+                                    andOffset:[self getOffset]];
+
 }
 
 - (void)setCenter:(MRMapCoordinate)coord {
@@ -235,10 +246,12 @@ static MRMapCoordinate _pinCoordinate;
 }
 
 - (void)setCenter:(MRMapCoordinate)coord animated:(BOOL)anim {
-	CGPoint pt = [_mapProjection pointForCoordinate:coord
-										  zoomLevel:self.zoomLevel
-										   tileSize:[_tileProvider tileSize]];
-	
+	CGPoint pt = [_mapProjection scaledPointForCoordinate:_pinCoordinate
+                                                zoomScale:self.zoomScale
+                                              contentSize:self.contentSize
+                                                 tileSize:[_tileProvider tileSize]
+                                                andOffset:[self getOffset]];
+
 	pt.x -= self.bounds.size.width / 2;
 	pt.y -= self.bounds.size.height / 2;
 	
